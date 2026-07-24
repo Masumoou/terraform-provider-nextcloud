@@ -1,8 +1,8 @@
-# diskbg-agent contract
+# Nextcloud Agent Contract
 
 Nextcloud's `occ`, `config.php`, and the LDAP/OnlyOffice app config don't have
 a first-class REST API. To make all of that Terraform-manageable, this
-provider assumes a small internal service — `diskbg-agent` — runs on each WFE
+provider assumes a small internal service — `nextcloud-agent` — runs on each WFE
 and exposes the endpoints below. It's intentionally thin: mostly a wrapper
 around `occ`, direct config.php edits, and a couple of active health probes.
 This is the one piece of the design you have to build and deploy yourself;

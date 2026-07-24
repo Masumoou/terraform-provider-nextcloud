@@ -1,4 +1,4 @@
-# terraform-provider-diskbg
+# terraform-provider-nextcloud
 
 A Terraform provider for your Nextcloud platform and its
 supporting infrastructure — built from the "Terraform
@@ -25,7 +25,7 @@ PostgreSQL is intentionally left to the official
 [`cyrilgdn/postgresql`](https://registry.terraform.io/providers/cyrilgdn/postgresql)
 provider, per the design doc's own recommendation.
 
-## The one assumption: `diskbg-agent`
+## The one assumption: the agent
 
 Nextcloud doesn't expose `occ`/config.php/LDAP/OnlyOffice config over REST,
 so this provider assumes a small internal agent runs on each WFE and
@@ -44,13 +44,13 @@ in a normal dev environment to fetch dependencies and build cleanly):
 
 ```bash
 go mod tidy
-go build -o bin/terraform-provider-diskbg .
+go build -o bin/terraform-provider-nextcloud .
 ```
 
 Or, with the included Makefile:
 
 ```bash
-make build     # builds bin/terraform-provider-diskbg
+make build     # builds bin/terraform-provider-nextcloud
 make install   # builds and installs into ~/.terraform.d/plugins for local testing
 make fmt vet   # formatting + static checks
 ```
@@ -70,7 +70,7 @@ from a registry — put this in `~/.terraformrc`:
 ```hcl
 provider_installation {
   dev_overrides {
-    "diskbg/diskbg" = "/absolute/path/to/terraform-provider-diskbg/bin"
+    "Masumoou/nextcloud" = "/absolute/path/to/terraform-provider-nextcloud/bin"
   }
   direct {}
 }
@@ -82,7 +82,7 @@ binary directly (no `terraform init` needed while the override is active).
 ## Configuration
 
 ```hcl
-provider "diskbg" {
+provider "nextcloud" {
   agent_url = "https://wfe-01.example.com:8443" # or DISKBG_AGENT_URL
   # agent_token, haproxy_*, ceph_rgw_* -> set via env vars, see below
 }

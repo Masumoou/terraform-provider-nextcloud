@@ -2,12 +2,12 @@ default: build
 
 .PHONY: build
 build:
-	go build -o bin/terraform-provider-diskbg .
+	go build -o bin/terraform-provider-nextcloud .
 
 .PHONY: install
 install: build
-	mkdir -p ~/.terraform.d/plugins/registry.terraform.io/diskbg/diskbg/0.1.0/$$(go env GOOS)_$$(go env GOARCH)
-	cp bin/terraform-provider-diskbg ~/.terraform.d/plugins/registry.terraform.io/diskbg/diskbg/0.1.0/$$(go env GOOS)_$$(go env GOARCH)/
+	mkdir -p ~/.terraform.d/plugins/registry.terraform.io/Masumoou/nextcloud/0.1.0/$$(go env GOOS)_$$(go env GOARCH)
+	cp bin/terraform-provider-nextcloud ~/.terraform.d/plugins/registry.terraform.io/Masumoou/nextcloud/0.1.0/$$(go env GOOS)_$$(go env GOARCH)/
 
 .PHONY: fmt
 fmt:
