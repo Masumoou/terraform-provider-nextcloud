@@ -1,12 +1,12 @@
 terraform {
   required_providers {
     diskbg = {
-      source = "diskbg/diskbg"
+      source = "Masumoou/nextcloud"
     }
   }
 }
 
-provider "diskbg" {
+provider "nextcloud" {
   agent_url           = "http://localhost"
   ceph_rgw_admin_url  = "http://192.168.1.100:8081"
   ceph_rgw_access_key = "DUMMY_ACCESS_KEY"

@@ -1,12 +1,12 @@
 terraform {
   required_providers {
     diskbg = {
-      source = "diskbg/diskbg"
+      source = "Masumoou/nextcloud"
     }
   }
 }
 
-provider "diskbg" {
+provider "nextcloud" {
   agent_url              = "http://localhost"
   haproxy_dataplane_url  = "http://192.168.1.100:5555/v3"
   haproxy_username       = "admin"

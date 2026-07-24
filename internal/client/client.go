@@ -5,7 +5,7 @@
 //
 //	Nextcloud/OCC, LDAP and OnlyOffice configuration cannot be managed over a
 //	public REST API out of the box, so this provider assumes a lightweight
-//	"diskbg-agent" runs on each WFE (Web Front End) and exposes the handful
+//	"nextcloud-agent" runs on each WFE (Web Front End) and exposes the handful
 //	of endpoints below. The agent is intentionally simple: it shells out to
 //	`occ`, edits config.php, and reports health. See /docs/agent.md for the
 //	expected contract. HAProxy is talked to directly via its Data Plane API,
@@ -74,7 +74,7 @@ type APIError struct {
 }
 
 func (e *APIError) Error() string {
-	return fmt.Sprintf("diskbg: request failed with status %d: %s", e.StatusCode, e.Body)
+	return fmt.Sprintf("nextcloud: request failed with status %d: %s", e.StatusCode, e.Body)
 }
 
 // doJSON performs a request against the diskbg-agent, marshalling `body` as
@@ -85,14 +85,14 @@ func (c *Client) doJSON(ctx context.Context, method, path string, body, out inte
 	if body != nil {
 		b, err := json.Marshal(body)
 		if err != nil {
-			return fmt.Errorf("diskbg: marshalling request body: %w", err)
+			return fmt.Errorf("nextcloud: marshalling request body: %w", err)
 		}
 		reader = bytes.NewReader(b)
 	}
 
 	req, err := http.NewRequestWithContext(ctx, method, c.cfg.AgentURL+path, reader)
 	if err != nil {
-		return fmt.Errorf("diskbg: building request: %w", err)
+		return fmt.Errorf("nextcloud: building request: %w", err)
 	}
 	req.Header.Set("Content-Type", "application/json")
 	if c.cfg.AgentToken != "" {
@@ -101,13 +101,13 @@ func (c *Client) doJSON(ctx context.Context, method, path string, body, out inte
 
 	resp, err := c.http.Do(req)
 	if err != nil {
-		return fmt.Errorf("diskbg: performing request: %w", err)
+		return fmt.Errorf("nextcloud: performing request: %w", err)
 	}
 	defer resp.Body.Close()
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("diskbg: reading response: %w", err)
+		return fmt.Errorf("nextcloud: reading response: %w", err)
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
@@ -116,7 +116,7 @@ func (c *Client) doJSON(ctx context.Context, method, path string, body, out inte
 
 	if out != nil && len(respBody) > 0 {
 		if err := json.Unmarshal(respBody, out); err != nil {
-			return fmt.Errorf("diskbg: unmarshalling response: %w", err)
+			return fmt.Errorf("nextcloud: unmarshalling response: %w", err)
 		}
 	}
 	return nil

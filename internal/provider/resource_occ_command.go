@@ -36,7 +36,7 @@ func (r *OccCommandResource) Metadata(_ context.Context, req resource.MetadataRe
 
 func (r *OccCommandResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Runs an arbitrary `occ` command through the diskbg-agent, e.g. `maintenance:repair`, " +
+		Description: "Runs an arbitrary `occ` command through the nextcloud-agent, e.g. `maintenance:repair`, " +
 			"`files:scan`, `db:add-missing-indices`, `maintenance:mimetype:update-db`, `maintenance:update:htaccess`. " +
 			"Because occ commands are imperative rather than declarative, re-execution is controlled by the " +
 			"`triggers` map: change any value there to force the command to run again on the next apply.",

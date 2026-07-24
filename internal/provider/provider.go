@@ -52,13 +52,13 @@ func (p *DiskbgProvider) Schema(_ context.Context, _ provider.SchemaRequest, res
 		Attributes: map[string]schema.Attribute{
 			"agent_url": schema.StringAttribute{
 				Optional: true,
-				Description: "Base URL of the diskbg-agent running on the target WFE, e.g. " +
+				Description: "Base URL of the nextcloud-agent running on the target WFE, e.g. " +
 					"https://wfe-01.example.com:8443. Falls back to DISKBG_AGENT_URL.",
 			},
 			"agent_token": schema.StringAttribute{
 				Optional:    true,
 				Sensitive:   true,
-				Description: "Bearer token for the diskbg-agent. Falls back to DISKBG_AGENT_TOKEN.",
+				Description: "Bearer token for the nextcloud-agent. Falls back to DISKBG_AGENT_TOKEN.",
 			},
 			"haproxy_dataplane_url": schema.StringAttribute{
 				Optional:    true,
@@ -117,9 +117,9 @@ func (p *DiskbgProvider) Configure(ctx context.Context, req provider.ConfigureRe
 	if cfg.AgentURL == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("agent_url"),
-			"Missing diskbg-agent URL",
+			"Missing nextcloud-agent URL",
 			"Set agent_url in the provider block or the DISKBG_AGENT_URL environment variable. "+
-				"This should point at the diskbg-agent instance for the WFE you intend to manage.",
+				"This should point at the nextcloud-agent instance for the WFE you intend to manage.",
 		)
 		return
 	}

@@ -1,13 +1,13 @@
 terraform {
   required_providers {
     diskbg = {
-      source  = "diskbg/diskbg"
+      source  = "Masumoou/nextcloud"
       version = "~> 0.1"
     }
   }
 }
 
-provider "diskbg" {
+provider "nextcloud" {
   agent_url = "https://wfe-01.example.com:8443"
   # agent_token, haproxy_*, ceph_rgw_* are best set via environment
   # variables instead of hardcoding them here:

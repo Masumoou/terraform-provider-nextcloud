@@ -64,14 +64,14 @@ func (c *Client) doHAProxyJSON(ctx context.Context, method, path string, body, o
 	if body != nil {
 		b, err := json.Marshal(body)
 		if err != nil {
-			return fmt.Errorf("diskbg: marshalling haproxy request: %w", err)
+			return fmt.Errorf("nextcloud: marshalling haproxy request: %w", err)
 		}
 		reader = bytes.NewReader(b)
 	}
 
 	req, err := http.NewRequestWithContext(ctx, method, c.cfg.HAProxyDataPlaneURL+path, reader)
 	if err != nil {
-		return fmt.Errorf("diskbg: building haproxy request: %w", err)
+		return fmt.Errorf("nextcloud: building haproxy request: %w", err)
 	}
 	req.Header.Set("Content-Type", "application/json")
 	if c.cfg.HAProxyUsername != "" {
@@ -80,20 +80,20 @@ func (c *Client) doHAProxyJSON(ctx context.Context, method, path string, body, o
 
 	resp, err := c.http.Do(req)
 	if err != nil {
-		return fmt.Errorf("diskbg: performing haproxy request: %w", err)
+		return fmt.Errorf("nextcloud: performing haproxy request: %w", err)
 	}
 	defer resp.Body.Close()
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("diskbg: reading haproxy response: %w", err)
+		return fmt.Errorf("nextcloud: reading haproxy response: %w", err)
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		return &APIError{StatusCode: resp.StatusCode, Body: string(respBody)}
 	}
 	if out != nil && len(respBody) > 0 {
 		if err := json.Unmarshal(respBody, out); err != nil {
-			return fmt.Errorf("diskbg: unmarshalling haproxy response: %w", err)
+			return fmt.Errorf("nextcloud: unmarshalling haproxy response: %w", err)
 		}
 	}
 	return nil
@@ -102,7 +102,7 @@ func (c *Client) doHAProxyJSON(ctx context.Context, method, path string, body, o
 func (c *Client) getHAProxyConfigVersion(ctx context.Context) (int64, error) {
 	var version int64
 	if err := c.doHAProxyJSON(ctx, http.MethodGet, "/services/haproxy/configuration/version", nil, &version); err != nil {
-		return 0, fmt.Errorf("diskbg: fetching haproxy config version: %w", err)
+		return 0, fmt.Errorf("nextcloud: fetching haproxy config version: %w", err)
 	}
 	return version, nil
 }
@@ -150,7 +150,7 @@ type CephRGWUser struct {
 func (c *Client) doCephJSON(ctx context.Context, method, path string, out interface{}) error {
 	req, err := http.NewRequestWithContext(ctx, method, c.cfg.CephRGWAdminURL+"/admin"+path, nil)
 	if err != nil {
-		return fmt.Errorf("diskbg: building ceph request: %w", err)
+		return fmt.Errorf("nextcloud: building ceph request: %w", err)
 	}
 
 	signer := v4.NewSigner()
@@ -160,7 +160,7 @@ func (c *Client) doCephJSON(ctx context.Context, method, path string, out interf
 		SecretAccessKey: c.cfg.CephRGWSecretKey,
 	}
 	if err := signer.SignHTTP(ctx, creds, req, emptyHash, "s3", "us-east-1", time.Now()); err != nil {
-		return fmt.Errorf("diskbg: signing ceph request: %w", err)
+		return fmt.Errorf("nextcloud: signing ceph request: %w", err)
 	}
 
 	if dump, dumpErr := httputil.DumpRequestOut(req, true); dumpErr == nil {
@@ -169,7 +169,7 @@ func (c *Client) doCephJSON(ctx context.Context, method, path string, out interf
 
 	resp, err := c.http.Do(req)
 	if err != nil {
-		return fmt.Errorf("diskbg: performing ceph request: %w", err)
+		return fmt.Errorf("nextcloud: performing ceph request: %w", err)
 	}
 	defer resp.Body.Close()
 
@@ -179,14 +179,14 @@ func (c *Client) doCephJSON(ctx context.Context, method, path string, out interf
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("diskbg: reading ceph response: %w", err)
+		return fmt.Errorf("nextcloud: reading ceph response: %w", err)
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		return &APIError{StatusCode: resp.StatusCode, Body: string(respBody)}
 	}
 	if out != nil && len(respBody) > 0 {
 		if err := json.Unmarshal(respBody, out); err != nil {
-			return fmt.Errorf("diskbg: unmarshalling ceph response: %w", err)
+			return fmt.Errorf("nextcloud: unmarshalling ceph response: %w", err)
 		}
 	}
 	return nil
