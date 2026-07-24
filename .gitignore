@@ -4,6 +4,7 @@ diskbg-agent-linux
 diskbg-agent.exe
 terraform-provider-nextcloud
 terraform-provider-nextcloud.exe
+terraform-provider-diskbg.exe
 bin/
 
 # Terraform
