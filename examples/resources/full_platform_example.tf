@@ -1,5 +1,5 @@
-# Full example: brings up the disk.bg platform config on a single WFE the
-# way it's described in the "Disk.bg Terraform Provider Vision" doc.
+# Full example: brings up the platform config on a single WFE the
+# way it's described in the "Terraform Provider Vision" doc.
 
 resource "nextcloud_config" "main" {
   maintenance_mode = false
