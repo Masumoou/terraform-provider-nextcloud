@@ -83,21 +83,21 @@ binary directly (no `terraform init` needed while the override is active).
 
 ```hcl
 provider "nextcloud" {
-  agent_url = "https://wfe-01.example.com:8443" # or DISKBG_AGENT_URL
+  agent_url = "https://wfe-01.example.com:8443" # or NEXTCLOUD_AGENT_URL
   # agent_token, haproxy_*, ceph_rgw_* -> set via env vars, see below
 }
 ```
 
 | Provider argument | Env var fallback |
 |---|---|
-| `agent_url` | `DISKBG_AGENT_URL` |
-| `agent_token` | `DISKBG_AGENT_TOKEN` |
-| `haproxy_dataplane_url` | `DISKBG_HAPROXY_URL` |
-| `haproxy_username` | `DISKBG_HAPROXY_USERNAME` |
-| `haproxy_password` | `DISKBG_HAPROXY_PASSWORD` |
-| `ceph_rgw_admin_url` | `DISKBG_CEPH_RGW_URL` |
-| `ceph_rgw_access_key` | `DISKBG_CEPH_RGW_ACCESS_KEY` |
-| `ceph_rgw_secret_key` | `DISKBG_CEPH_RGW_SECRET_KEY` |
+| `agent_url` | `NEXTCLOUD_AGENT_URL` |
+| `agent_token` | `NEXTCLOUD_AGENT_TOKEN` |
+| `haproxy_dataplane_url` | `NEXTCLOUD_HAPROXY_URL` |
+| `haproxy_username` | `NEXTCLOUD_HAPROXY_USERNAME` |
+| `haproxy_password` | `NEXTCLOUD_HAPROXY_PASSWORD` |
+| `ceph_rgw_admin_url` | `NEXTCLOUD_CEPH_RGW_URL` |
+| `ceph_rgw_access_key` | `NEXTCLOUD_CEPH_RGW_ACCESS_KEY` |
+| `ceph_rgw_secret_key` | `NEXTCLOUD_CEPH_RGW_SECRET_KEY` |
 | `insecure_skip_verify` | — (staging/self-signed certs only) |
 
 See `examples/resources/full_platform_example.tf` for a full worked example

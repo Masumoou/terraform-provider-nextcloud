@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    diskbg = {
+    nextcloud = {
       source = "Masumoou/nextcloud"
     }
   }

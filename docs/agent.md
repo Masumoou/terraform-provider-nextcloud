@@ -9,7 +9,7 @@ This is the one piece of the design you have to build and deploy yourself;
 everything else in this repo (the provider) talks to it.
 
 Auth: Bearer token (`Authorization: Bearer <token>`), configured via
-`agent_token` / `DISKBG_AGENT_TOKEN`.
+`agent_token` / `NEXTCLOUD_AGENT_TOKEN`.
 
 | Method | Path | Purpose |
 |---|---|---|

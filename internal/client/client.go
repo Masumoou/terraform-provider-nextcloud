@@ -24,9 +24,9 @@ import (
 	"time"
 )
 
-// Config holds everything needed to talk to a single WFE's diskbg-agent.
+// Config holds everything needed to talk to a single WFE's nextcloud-agent.
 type Config struct {
-	// AgentURL is the base URL of the diskbg-agent running on the target WFE,
+	// AgentURL is the base URL of the nextcloud-agent running on the target WFE,
 	// e.g. https://wfe-01.example.com:8443
 	AgentURL string
 	// AgentToken authenticates against the agent (Bearer token).
@@ -77,7 +77,7 @@ func (e *APIError) Error() string {
 	return fmt.Sprintf("nextcloud: request failed with status %d: %s", e.StatusCode, e.Body)
 }
 
-// doJSON performs a request against the diskbg-agent, marshalling `body` as
+// doJSON performs a request against the nextcloud-agent, marshalling `body` as
 // the JSON payload (if non-nil) and unmarshalling the response into `out`
 // (if non-nil).
 func (c *Client) doJSON(ctx context.Context, method, path string, body, out interface{}) error {
