@@ -1,0 +1,19 @@
+# Go binaries
+diskbg-agent
+diskbg-agent-linux
+diskbg-agent.exe
+terraform-provider-diskbg
+terraform-provider-diskbg.exe
+bin/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+terraform.tfvars
+
+# Secrets / Logs
+*.env
+.env
+*.log
